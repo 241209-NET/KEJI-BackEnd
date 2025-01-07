@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Banking.API.Migrations
 {
     [DbContext(typeof(BankingContext))]
-    [Migration("20250107185906_InitialCreate")]
+    [Migration("20250107192701_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -28,10 +28,7 @@ namespace Banking.API.Migrations
             modelBuilder.Entity("Banking.API.Model.Account", b =>
                 {
                     b.Property<int>("AccountId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AccountId"));
 
                     b.Property<double>("Balance")
                         .HasColumnType("float");
@@ -67,7 +64,7 @@ namespace Banking.API.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StatementId")
+                    b.Property<int?>("StatementId")
                         .HasColumnType("int");
 
                     b.HasKey("ActivityId");
@@ -132,9 +129,7 @@ namespace Banking.API.Migrations
                 {
                     b.HasOne("Banking.API.Model.Statement", "Statement")
                         .WithMany()
-                        .HasForeignKey("StatementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StatementId");
 
                     b.Navigation("Statement");
                 });

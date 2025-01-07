@@ -25,10 +25,7 @@ namespace Banking.API.Migrations
             modelBuilder.Entity("Banking.API.Model.Account", b =>
                 {
                     b.Property<int>("AccountId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AccountId"));
 
                     b.Property<double>("Balance")
                         .HasColumnType("float");

@@ -15,8 +15,7 @@ namespace Banking.API.Migrations
                 name: "Account",
                 columns: table => new
                 {
-                    AccountId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AccountId = table.Column<int>(type: "int", nullable: false),
                     Balance = table.Column<double>(type: "float", nullable: false),
                     Currency = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -79,7 +78,7 @@ namespace Banking.API.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsRecurring = table.Column<bool>(type: "bit", nullable: false),
                     ActivityDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    StatementId = table.Column<int>(type: "int", nullable: false)
+                    StatementId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -88,8 +87,7 @@ namespace Banking.API.Migrations
                         name: "FK_Activity_Statement_StatementId",
                         column: x => x.StatementId,
                         principalTable: "Statement",
-                        principalColumn: "StatementId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "StatementId");
                 });
 
             migrationBuilder.CreateIndex(
