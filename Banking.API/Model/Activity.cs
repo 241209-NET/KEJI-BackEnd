@@ -12,6 +12,6 @@ public class Activity
     public DateOnly ActivityDate { get; set; }
     
     [ForeignKey("Statement")]
-    public int? StatementId { get; set; }
+    public int StatementId { get; set; }
     public virtual Statement? Statement { get; set; }
 }

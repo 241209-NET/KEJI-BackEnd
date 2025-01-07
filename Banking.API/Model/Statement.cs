@@ -13,4 +13,5 @@ public class Statement
     public int AccountId { get; set; }
 
     public virtual Account? Account { get; set; }
+    public virtual ICollection<Activity>? Activities { get; set; }
 }
