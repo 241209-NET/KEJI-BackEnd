@@ -7,3 +7,8 @@ public interface IUserService
 {
     Task<User>CreateAccount(UserDTO newUser);
 }
+
+public interface IStatementService
+{
+    Task<Statement> GetStatementById(int statementId);
+}
