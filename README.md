@@ -1,4 +1,6 @@
 # Keji Banking App
+## Description
+- Keji Banking App is a digital platform for seamless financial management, offering secure account access, deposits, withdrawals, statement views, and currency conversion. Built with user convenience in mind, ensuring your financial activities are both efficient and stress-free.
 
 ## User Stories
 - As a user, I want to be able to create an account so that I can interact with the app.
