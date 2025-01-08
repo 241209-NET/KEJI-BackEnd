@@ -46,6 +46,9 @@ namespace Banking.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ActivityId"));
 
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
                     b.Property<DateOnly>("ActivityDate")
                         .HasColumnType("date");
 
@@ -56,15 +59,19 @@ namespace Banking.API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsRecurring")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StatementId")
+                    b.Property<int?>("StatementId")
                         .HasColumnType("int");
 
                     b.HasKey("ActivityId");
+
+                    b.HasIndex("AccountId");
 
                     b.HasIndex("StatementId");
 
@@ -124,11 +131,15 @@ namespace Banking.API.Migrations
 
             modelBuilder.Entity("Banking.API.Model.Activity", b =>
                 {
-                    b.HasOne("Banking.API.Model.Statement", "Statement")
+                    b.HasOne("Banking.API.Model.Account", null)
                         .WithMany("Activities")
-                        .HasForeignKey("StatementId")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Banking.API.Model.Statement", "Statement")
+                        .WithMany("Activities")
+                        .HasForeignKey("StatementId");
 
                     b.Navigation("Statement");
                 });
@@ -157,6 +168,8 @@ namespace Banking.API.Migrations
 
             modelBuilder.Entity("Banking.API.Model.Account", b =>
                 {
+                    b.Navigation("Activities");
+
                     b.Navigation("Statements");
                 });
 

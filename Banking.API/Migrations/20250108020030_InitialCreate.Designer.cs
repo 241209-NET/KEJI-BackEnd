@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Banking.API.Migrations
 {
     [DbContext(typeof(BankingContext))]
-    [Migration("20250107192701_InitialCreate")]
+    [Migration("20250108020030_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -49,6 +49,9 @@ namespace Banking.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ActivityId"));
 
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
                     b.Property<DateOnly>("ActivityDate")
                         .HasColumnType("date");
 
@@ -68,6 +71,8 @@ namespace Banking.API.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ActivityId");
+
+                    b.HasIndex("AccountId");
 
                     b.HasIndex("StatementId");
 
@@ -127,8 +132,14 @@ namespace Banking.API.Migrations
 
             modelBuilder.Entity("Banking.API.Model.Activity", b =>
                 {
+                    b.HasOne("Banking.API.Model.Account", null)
+                        .WithMany("Activities")
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Banking.API.Model.Statement", "Statement")
-                        .WithMany()
+                        .WithMany("Activities")
                         .HasForeignKey("StatementId");
 
                     b.Navigation("Statement");
@@ -158,7 +169,14 @@ namespace Banking.API.Migrations
 
             modelBuilder.Entity("Banking.API.Model.Account", b =>
                 {
+                    b.Navigation("Activities");
+
                     b.Navigation("Statements");
+                });
+
+            modelBuilder.Entity("Banking.API.Model.Statement", b =>
+                {
+                    b.Navigation("Activities");
                 });
 #pragma warning restore 612, 618
         }
