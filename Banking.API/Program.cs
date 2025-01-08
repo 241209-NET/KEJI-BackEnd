@@ -1,4 +1,6 @@
 using Banking.API.Data;
+using Banking.API.Repository;
+using Banking.API.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -14,8 +16,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Dependency Inject the proper services
+builder.Services.AddScoped<IUserService, UserService>();
 
 // Dependency Inject the proper Repositories
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // Controllers
 builder.Services.AddControllers()
