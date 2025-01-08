@@ -78,17 +78,29 @@ namespace Banking.API.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsRecurring = table.Column<bool>(type: "bit", nullable: false),
                     ActivityDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    StatementId = table.Column<int>(type: "int", nullable: true)
+                    StatementId = table.Column<int>(type: "int", nullable: true),
+                    AccountId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Activity", x => x.ActivityId);
+                    table.ForeignKey(
+                        name: "FK_Activity_Account_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "Account",
+                        principalColumn: "AccountId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Activity_Statement_StatementId",
                         column: x => x.StatementId,
                         principalTable: "Statement",
                         principalColumn: "StatementId");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Activity_AccountId",
+                table: "Activity",
+                column: "AccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Activity_StatementId",

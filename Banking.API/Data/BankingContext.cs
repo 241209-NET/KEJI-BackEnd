@@ -8,6 +8,13 @@ public class BankingContext : DbContext
     public BankingContext() {}
     public BankingContext(DbContextOptions<BankingContext> options) : base(options) {}
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Activity>()
+            .Property(a => a.IsRecurring)
+            .HasDefaultValue(false);
+    }
+
     public virtual DbSet<Account> Account {get; set;}
     public virtual DbSet<Activity> Activity {get; set;}
     public virtual DbSet<Statement> Statement {get; set;}
