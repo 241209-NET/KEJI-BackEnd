@@ -17,10 +17,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Dependency Inject the proper services
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IStatementService, StatementService>();
 builder.Services.AddScoped<IActivityService, ActivityService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 
 // Dependency Inject the proper Repositories
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IStatementRepository, StatementRepository>();
 builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 
