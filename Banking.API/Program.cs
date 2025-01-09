@@ -1,4 +1,5 @@
 using Banking.API.Data;
+using Banking.API.Model;
 using Banking.API.Repository;
 using Banking.API.Service;
 using Microsoft.EntityFrameworkCore;
@@ -17,9 +18,12 @@ builder.Services.AddSwaggerGen();
 
 // Dependency Inject the proper services
 builder.Services.AddScoped<IActivityService, ActivityService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 // Dependency Inject the proper Repositories
 builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+
 // Controllers
 builder.Services.AddControllers()
     .AddJsonOptions(options => 
