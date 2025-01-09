@@ -15,4 +15,9 @@ public class UserService : IUserService
         var user = await _userRepository.CreateAccount(fromDTO);
         return user;
     }
+
+    public async Task<User?> GetUserById(int userId)
+    {
+        return await _userRepository.GetUserById(userId);
+    }
 }

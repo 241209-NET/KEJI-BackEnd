@@ -5,6 +5,7 @@ namespace Banking.API.Repository;
 public interface IUserRepository
 {
     Task<User>CreateAccount(User newUser);
+    Task<User?>GetUserById(int userId);
 }
 
 public interface IStatementRepository

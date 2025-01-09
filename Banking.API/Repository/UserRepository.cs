@@ -1,3 +1,4 @@
+using System.Data.Entity;
 using Banking.API.Data;
 using Banking.API.Model;
 
@@ -13,4 +14,12 @@ public class UserRepository : IUserRepository
         await _bankingContext.SaveChangesAsync();
         return newUser;
     }
+
+    public async Task<User?> GetUserById(int userId)
+    {
+        return await _bankingContext.User
+        .Include(u => u.Account)
+        .FirstOrDefaultAsync(u => u.UserId == userId);
+    }
+
 }

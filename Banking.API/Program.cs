@@ -18,10 +18,13 @@ builder.Services.AddSwaggerGen();
 // Dependency Inject the proper services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IStatementService, StatementService>();
+builder.Services.AddScoped<IActivityService, ActivityService>();
 
 // Dependency Inject the proper Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IStatementRepository, StatementRepository>();
+builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
+
 
 // Controllers
 builder.Services.AddControllers()

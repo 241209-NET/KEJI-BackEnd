@@ -1,4 +1,5 @@
 using Banking.API.DTO;
+using Banking.API.Model;
 using Banking.API.Service;
 using Microsoft.AspNetCore.Mvc;
 using RouteAttribute = Microsoft.AspNetCore.Components.RouteAttribute;
@@ -22,5 +23,16 @@ public class UserController : ControllerBase
         }
         var user = await _userService.CreateAccount(newUser);
         return Ok(user);
+    }
+
+    [HttpGet("{userId}")]
+    public async Task<IActionResult> GetUserById(int userId)
+    {
+        var user =await _userService.GetUserById(userId);
+        if(user==null)
+        {
+            return NotFound($"User with ID {userId} not found.");
+        }
+        return Ok(userId);
     }
 }
