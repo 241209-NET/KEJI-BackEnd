@@ -8,13 +8,16 @@ public class UserRepository : IUserRepository
 {
     private readonly BankingContext _bankingContext;
     public UserRepository(BankingContext bankingContext) => _bankingContext = bankingContext;
-    public User CreateUser(User newUserDTO)
+    public void Add(User user)
     {
-        _bankingContext.User.Add(newUserDTO);
+        _bankingContext.User.Add(user);
         _bankingContext.SaveChanges();
-        return newUserDTO;
     }
 
+    public User GetByEmail(string email)
+    {
+        return _bankingContext.User.FirstOrDefault(u => u.Email == email);
+    }
     public async Task<User?> GetUserById(int userId)
     {
         return await _bankingContext.User

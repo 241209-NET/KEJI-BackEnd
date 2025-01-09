@@ -4,7 +4,8 @@ namespace Banking.API.Repository;
 
 public interface IUserRepository
 {
-    User CreateUser(User newUserDTO);
+    void Add(User user);
+    User GetByEmail(string email);
     Task<User?>GetUserById(int userId);
 }
 

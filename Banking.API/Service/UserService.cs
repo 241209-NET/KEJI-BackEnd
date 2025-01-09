@@ -10,16 +10,49 @@ public class UserService : IUserService
     private readonly IUserRepository _userRepository;
     public UserService(IUserRepository userRepository) => _userRepository = userRepository;
     
-    public User CreateUser(UserDTO newUserDTO)
+    public UserDTO Register(UserDTO userDTO)
     {
-        User fromDTO = newUserDTO.DTOToUser();
-        User fromDTO2 = Utilities.DTOToObject(newUserDTO);
-        var user = _userRepository.CreateUser(fromDTO);
-        return user;
+        var user = new User
+        {
+            UserName = userDTO.UserName,
+            Email = userDTO.Email,
+            Password = userDTO.Password,
+            AccountId = (int)userDTO.AccountId
+        };
+        _userRepository.Add(user);
+        return MapToDto(user);
+    }
+    private UserDTO MapToDto(User user)
+    {
+        return new UserDTO
+        {
+            UserId = user.UserId,
+            UserName = user.UserName,
+            Email = user.Email,
+            AccountId = user.AccountId
+        };
+    }
+
+
+    public string Login(LoginDTO loginDTO)
+    {
+        var user = _userRepository.GetByEmail(loginDTO.Email);
+        if (user == null || !VerifyPassword(loginDTO.Password, user.Password)) return null;
+
+        // Simulate generating a JWT or session token
+        return "SampleToken";
+    }
+    private bool VerifyPassword(string password, string hashedPassword)
+    {
+        // Simulate password verification
+        return password == hashedPassword;
     }
 
     public async Task<User?> GetUserById(int userId)
     {
         return await _userRepository.GetUserById(userId);
     }
+
+    
+    
 }
