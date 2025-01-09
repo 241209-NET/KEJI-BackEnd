@@ -9,15 +9,21 @@ public class StatementRepository : IStatementRepository
     private readonly BankingContext _bankingContext;
     public StatementRepository(BankingContext bankingContext) => _bankingContext = bankingContext;
 
-    public async Task<Statement> GetStatementById(int statementId)
+    public async Task<Statement> GetStatement(DateOnly date, int accountId)
     {
         var statement = await _bankingContext.Statement
             .Include(s => s.Activities)
-            .FirstOrDefaultAsync(s => s.StatementId == statementId);
+            .FirstOrDefaultAsync(s => s.StartDate == date);
 
         if (statement == null)
         {
-            throw new KeyNotFoundException($"Statement with ID {statementId} not found.");
+            Statement newStatement =  new (){
+                StartDate = date, 
+                AccountId = accountId
+            };
+            _bankingContext.Statement.Add(newStatement);
+            _bankingContext.SaveChanges();
+            return newStatement;
         }
 
         return statement;

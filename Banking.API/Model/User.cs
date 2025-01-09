@@ -10,7 +10,7 @@ public class User
     public string? Password { get; set; }
     
     [ForeignKey("Account")]
-    public int AccountId { get; set; }
+    public int? AccountId { get; set; }
     
     public virtual Account? Account { get; set; }
 }

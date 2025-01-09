@@ -15,7 +15,7 @@ public class UserController : ControllerBase
     public UserController(IUserService userService) => _userService = userService;
 
     [HttpPost("register")]
-    public IActionResult Register([FromBody]UserDTO userDTO)
+    public IActionResult Register([FromBody]UserRequestDTO userDTO)
     {
         var result = _userService.Register(userDTO);
         return Ok(result);

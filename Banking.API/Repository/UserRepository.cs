@@ -8,10 +8,11 @@ public class UserRepository : IUserRepository
 {
     private readonly BankingContext _bankingContext;
     public UserRepository(BankingContext bankingContext) => _bankingContext = bankingContext;
-    public void Add(User user)
+    public User Add(User user)
     {
         _bankingContext.User.Add(user);
         _bankingContext.SaveChanges();
+        return user;
     }
 
     public User GetByEmail(string email)

@@ -1,12 +1,20 @@
 namespace Banking.API.DTO;
 
-public class UserDTO
+public class UserRequestDTO
 {
-    public int UserId { get; set; }
+
     public string UserName { get; set; } = string.Empty; // Required username
     public string Email { get; set; } = string.Empty; //Required email
     public string Password { get; set; } = string.Empty; // Required password
-    public int? AccountId { get; set; }
+
+}
+
+public class UserResponseDTO
+{
+    public int UserId { get; set;}
+    public string UserName { get; set; } = string.Empty; // Required username
+    public string Email { get; set; } = string.Empty; //Required email
+    public string Password { get; set; } = string.Empty; // Required password
 }
 
 public class LoginDTO

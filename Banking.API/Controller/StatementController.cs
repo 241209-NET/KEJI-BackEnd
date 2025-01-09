@@ -11,12 +11,13 @@ public class StatementController : ControllerBase
     private readonly IStatementService _statementService;
     public StatementController(IStatementService statementService) => _statementService = statementService;
     
-    [HttpGet("{statementId}")]
-    public async Task<IActionResult> GetStatementById(int statementId)
+    [HttpGet("{month}/{day}/{year}/{AccountId}")]
+    public async Task<IActionResult> GetStatement( int month, int day, int year, int AccountId)
     {
         try
         {
-            var statement = await _statementService.GetStatementById(statementId);
+            var date = new DateOnly(year, month, day);
+            var statement = await _statementService.GetStatement(date, AccountId);
             return Ok(statement);
         }
         catch (Exception ex)
