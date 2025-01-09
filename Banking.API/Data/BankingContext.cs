@@ -13,6 +13,10 @@ public class BankingContext : DbContext
         modelBuilder.Entity<Activity>()
             .Property(a => a.IsRecurring)
             .HasDefaultValue(false);
+
+        modelBuilder.Entity<Account>()
+            .Property(a => a.Currency)
+            .HasDefaultValue("USD");
     }
 
     public virtual DbSet<Account> Account {get; set;}
