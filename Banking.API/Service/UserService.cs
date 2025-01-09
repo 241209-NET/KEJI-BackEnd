@@ -1,6 +1,7 @@
 using Banking.API.DTO;
 using Banking.API.Model;
 using Banking.API.Repository;
+using Banking.API.Utils;
 
 namespace Banking.API.Service;
 
@@ -8,11 +9,12 @@ public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
     public UserService(IUserRepository userRepository) => _userRepository = userRepository;
-    public async Task<User> CreateAccount(UserDTO newUser)
+    
+    public User CreateUser(UserDTO newUserDTO)
     {
-        
-        User fromDTO = newUser.DTOToUser();
-        var user = await _userRepository.CreateAccount(fromDTO);
+        User fromDTO = newUserDTO.DTOToUser();
+        User fromDTO2 = Utilities.DTOToObject(newUserDTO);
+        var user = _userRepository.CreateUser(fromDTO);
         return user;
     }
 

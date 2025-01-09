@@ -15,13 +15,9 @@ public class UserController : ControllerBase
     public UserController(IUserService userService) => _userService = userService;
 
     [HttpPost("create")]
-    public async Task<IActionResult> CreateAccount([FromBody] UserDTO newUser)
+    public IActionResult CreateUser(UserDTO newUserDTO)
     {
-        if(newUser == null)
-        {
-            return BadRequest("User data cannot be null");
-        }
-        var user = await _userService.CreateAccount(newUser);
+        var user = _userService.CreateUser(newUserDTO);
         return Ok(user);
     }
 

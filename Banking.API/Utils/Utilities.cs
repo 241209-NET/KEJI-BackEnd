@@ -7,6 +7,6 @@ public static class Utilities
 {
     public static User DTOToObject(UserDTO userDTO)
     {
-         return new User{UserName = userDTO.UserName, Password = userDTO.Password};
+         return new User{UserName = userDTO.UserName, Email = userDTO.Email, Password = userDTO.Password};
     }
 }

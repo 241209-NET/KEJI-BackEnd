@@ -1,6 +1,6 @@
-using System.Data.Entity;
 using Banking.API.Data;
 using Banking.API.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Banking.API.Repository;
 
@@ -8,11 +8,11 @@ public class UserRepository : IUserRepository
 {
     private readonly BankingContext _bankingContext;
     public UserRepository(BankingContext bankingContext) => _bankingContext = bankingContext;
-    public async Task<User> CreateAccount(User newUser)
+    public User CreateUser(User newUserDTO)
     {
-        await _bankingContext.User.AddAsync(newUser);
-        await _bankingContext.SaveChangesAsync();
-        return newUser;
+        _bankingContext.User.Add(newUserDTO);
+        _bankingContext.SaveChanges();
+        return newUserDTO;
     }
 
     public async Task<User?> GetUserById(int userId)

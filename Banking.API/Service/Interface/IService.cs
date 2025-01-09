@@ -5,7 +5,7 @@ namespace Banking.API.Service;
 
 public interface IUserService
 {
-    Task<User>CreateAccount(UserDTO newUser);
+    User CreateUser(UserDTO newUserDTO);
     Task<User?>GetUserById(int userId);
 }
 
