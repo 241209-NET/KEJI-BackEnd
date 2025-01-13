@@ -8,7 +8,6 @@ namespace Banking.API.Controller;
 
 [Route("api/[controller]")]
 [ApiController]
-
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;

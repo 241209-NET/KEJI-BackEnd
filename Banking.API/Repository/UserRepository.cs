@@ -17,7 +17,7 @@ public class UserRepository : IUserRepository
 
     public User GetByEmail(string email)
     {
-        return _bankingContext.User.FirstOrDefault(u => u.Email == email);
+        return _bankingContext.User.FirstOrDefault(u => u.Email == email)!;
     }
     public async Task<User?> GetUserById(int userId)
     {
