@@ -41,6 +41,6 @@ public class UserController : ControllerBase
         {
             return NotFound($"User with ID {userId} not found.");
         }
-        return Ok(userId);
+        return Ok(user);
     }
 }
