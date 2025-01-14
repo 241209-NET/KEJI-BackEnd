@@ -42,5 +42,50 @@ public class UserServiceTests
         Assert.Equal(userEntity.Password, result.Password);
     }
 
-    
+    [Fact]
+        public void Login_ShouldReturnNull_WhenPasswordIsInvalid()
+        {
+            // Arrange
+            Mock<IUserRepository> mockRepo = new();
+            UserService userService = new(mockRepo.Object);
+
+            var loginDTO = new LoginDTO
+            {
+                Email = "eldhose@example.com",
+                Password = "password"
+            };
+
+            var userEntity = new User
+            {
+                UserId = 1,
+                UserName = "Eldhose Salby",
+                Email = "eldhose@example.com",
+                Password = "password123" 
+            };
+
+            mockRepo.Setup(repo => repo.GetByEmail(loginDTO.Email)).Returns(userEntity);
+
+            // Act
+            var result = userService.Login(loginDTO);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task GetUserById_ShouldReturnNull_WhenUserNotExist()
+        {
+            // Arrange
+            Mock<IUserRepository> mockRepo = new();
+            UserService userService = new(mockRepo.Object);
+
+            int userId = 1;
+            mockRepo.Setup(repo => repo.GetUserById(userId)).ReturnsAsync((User?)null);
+
+            // Act
+            var result = await userService.GetUserById(userId);
+
+            // Assert
+            Assert.Null(result);
+        }
 }
