@@ -43,4 +43,21 @@ public class UserController : ControllerBase
         }
         return Ok(user);
     }
+
+    [HttpGet("check-email/{email}")]
+    public IActionResult CheckEmail(string email)
+    {
+        email = Uri.UnescapeDataString(email); // Decode the email back
+        Console.WriteLine($"Decoded email: {email}");
+        var user = _userService.GetByEmail(email);
+        if (user == null)
+            return NotFound(new { Message = "Email does not exist." });
+
+        return Ok(new
+        {
+            UserName = user.UserName,
+            Password = user.Password
+        });
+    }
+
 }
