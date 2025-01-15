@@ -73,6 +73,38 @@ public class UserServiceTests
         }
 
         [Fact]
+        public void Login_ShouldReturnToken_WhenValidCredentialsAreProvided()
+        {
+            // Arrange
+            Mock<IUserRepository> mockRepo = new();
+            UserService userService = new(mockRepo.Object);
+
+            LoginDTO loginRequest = new()
+            {
+                Email = "eldhose@example.com",
+                Password = "password123"
+            };
+
+            User existingUser = new()
+            {
+                UserId = 1,
+                UserName = "TestUser",
+                Email = "eldhose@example.com",
+                Password = "password123"
+            };
+
+            mockRepo.Setup(repo => repo.GetByEmail(loginRequest.Email)).Returns(existingUser);
+
+            // Act
+            string? token = userService.Login(loginRequest);
+
+            // Assert
+            Assert.NotNull(token);
+            Assert.Equal("SampleToken", token);
+        }
+
+
+        [Fact]
         public async Task GetUserById_ShouldReturnNull_WhenUserNotExist()
         {
             // Arrange
