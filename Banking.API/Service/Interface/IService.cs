@@ -6,7 +6,7 @@ namespace Banking.API.Service;
 public interface IUserService
 {
     UserResponseDTO Register(UserRequestDTO userDTO);
-    string? Login(LoginDTO loginDTO);
+    Token? Login(LoginDTO loginDTO);
     Task<User?>GetUserById(int userId);
     User? GetByEmail(string email);
 }
