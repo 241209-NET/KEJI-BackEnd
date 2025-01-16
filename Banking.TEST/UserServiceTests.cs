@@ -72,38 +72,49 @@ public class UserServiceTests
             Assert.Null(result);
         }
 
+
         [Fact]
-        public void Login_ShouldReturnToken_WhenValidCredentialsAreProvided()
+    public void Login_ShouldReturnToken_WhenValidCredentialsAreProvided()
         {
             // Arrange
-            Mock<IUserRepository> mockRepo = new();
-            UserService userService = new(mockRepo.Object);
+            var mockRepo = new Mock<IUserRepository>();
+            var userService = new UserService(mockRepo.Object);
 
-            LoginDTO loginRequest = new()
+            var loginRequest = new LoginDTO
             {
                 Email = "eldhose@example.com",
                 Password = "password123"
             };
 
-            User existingUser = new()
+            var existingUser = new User
             {
                 UserId = 1,
-                UserName = "TestUser",
+                UserName = "Eldhose Salby",
                 Email = "eldhose@example.com",
-                Password = "password123"
+                Password = "password123", 
+                Account = new Account
+                {
+                    AccountId = 1,
+                    Balance = 1000.00,
+                    Currency = "USD",
+                    Statements = new List<Statement> { new Statement { StatementId = 1 } },
+                    Activities = new List<Activity> { new Activity { ActivityId = 1, Name = "Deposit"} }
+                }
             };
 
             mockRepo.Setup(repo => repo.GetByEmail(loginRequest.Email)).Returns(existingUser);
 
             // Act
-            string? token = userService.Login(loginRequest);
+            var result = userService.Login(loginRequest);
 
             // Assert
-            Assert.NotNull(token);
-            Assert.Equal("SampleToken", token);
+            Assert.NotNull(result);
+            Assert.Equal(existingUser.UserId, result.UserId);
+            Assert.Equal(existingUser.UserName, result.UserName);
+            Assert.Equal(existingUser.Email, result.Email);
         }
 
-
+        
         [Fact]
         public async Task GetUserById_ShouldReturnNull_WhenUserNotExist()
         {
