@@ -12,4 +12,5 @@ public interface IUserRepository
 public interface IStatementRepository
 {
     Task<Statement> GetStatement(DateOnly date, int accountId);
+    public Statement GetStatementById(int id);
 }

@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Banking.API.DTO;
 using Banking.API.Model;
 using Banking.API.Repository;
@@ -30,26 +31,30 @@ public class UserService : IUserService
         var user = _userRepository.GetByEmail(loginDTO.Email!);
         if (user == null || !VerifyPassword(loginDTO.Password!, user.Password!)) return null;
 
-        Token token = new(){
-            account = new(){
+        Token token = new()
+        {
+            account = new()
+            {
                 Statements = [],
                 Activities = []
             }
         };
 
-        EntityToDTORequest<User,Token>.ToDTO(user,token);
+        EntityToDTORequest<User, Token>.ToDTO(user, token);
 
-        EntityToDTORequest<Account, Token_account>.ToDTO(user.Account!,token.account);
+        EntityToDTORequest<Account, Token_account>.ToDTO(user.Account!, token.account);
 
-        foreach(Statement s in user.Account!.Statements!){
+        foreach (Statement s in user.Account!.Statements!)
+        {
             Token_statement Ts = new();
-            EntityToDTORequest<Statement,Token_statement>.ToDTO(s, Ts);
+            EntityToDTORequest<Statement, Token_statement>.ToDTO(s, Ts);
             token.account.Statements.Add(Ts);
         }
 
-        foreach(Activity a in user.Account.Activities!){
+        foreach (Activity a in user.Account.Activities!)
+        {
             Token_activity Ta = new();
-            EntityToDTORequest<Activity,Token_activity>.ToDTO(a, Ta);
+            EntityToDTORequest<Activity, Token_activity>.ToDTO(a, Ta);
             token.account.Activities.Add(Ta);
         }
 

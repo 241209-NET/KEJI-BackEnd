@@ -24,4 +24,11 @@ public class StatementController : ControllerBase
             return NotFound(ex.Message);
         }
     }
+
+    [HttpGet("{id}")]
+    public IActionResult GetStatementById(int id){
+        var statement = _statementService.GetStatementById(id);
+
+        return Ok(statement);
+    }
 }
