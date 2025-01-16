@@ -5,7 +5,6 @@ namespace Banking.API.Controller;
 
 [Route("api/[controller]")]
 [ApiController]
-
 public class StatementController : ControllerBase
 {
     private readonly IStatementService _statementService;

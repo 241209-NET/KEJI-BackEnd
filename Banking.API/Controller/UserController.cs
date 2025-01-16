@@ -8,7 +8,6 @@ namespace Banking.API.Controller;
 
 [Route("api/[controller]")]
 [ApiController]
-
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
@@ -42,6 +41,6 @@ public class UserController : ControllerBase
         {
             return NotFound($"User with ID {userId} not found.");
         }
-        return Ok(userId);
+        return Ok(user);
     }
 }
