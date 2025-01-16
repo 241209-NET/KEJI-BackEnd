@@ -17,14 +17,27 @@ public class StatementRepository : IStatementRepository
 
         if (statement == null)
         {
-            Statement newStatement =  new (){
-                StartDate = date, 
+            Statement newStatement = new()
+            {
+                StartDate = date,
                 AccountId = accountId
             };
             _bankingContext.Statement.Add(newStatement);
             _bankingContext.SaveChanges();
             return newStatement;
         }
+
+        return statement;
+    }
+
+    public Statement GetStatementById(int id)
+    {
+
+        var statement = _bankingContext.Statement.Single(s => s.StatementId == id);
+
+        _bankingContext.Entry(statement)
+            .Collection(s => s.Activities!)
+            .Load();
 
         return statement;
     }
