@@ -14,4 +14,5 @@ public interface IUserService
 public interface IStatementService
 {
     Task<Statement> GetStatement(DateOnly date, int accountId);
+    public Token_statement GetStatementById(int id);
 }

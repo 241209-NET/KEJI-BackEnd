@@ -1,6 +1,11 @@
+using System.Net.WebSockets;
+using Banking.API.DTO;
 using Banking.API.Model;
 using Banking.API.Repository;
+using Banking.API.Utils;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
+using Microsoft.VisualBasic;
 
 namespace Banking.API.Service;
 
@@ -14,5 +19,23 @@ public class StatementService : IStatementService
         var statement = await _statementRepository.GetStatement(date, accountId);
         
         return statement;
+    }
+
+    public Token_statement GetStatementById(int id){
+        var statement = _statementRepository.GetStatementById(id);
+
+        Token_statement res = new(){
+            Activities = []
+        };
+
+        EntityToDTORequest<Statement, Token_statement>.ToDTO(statement, res);
+
+        foreach(Activity a in statement.Activities!){
+            Token_activity temp = new();
+            EntityToDTORequest<Activity, Token_activity>.ToDTO(a, temp);
+            res.Activities!.Add(temp);
+        }
+
+        return res;
     }
 }
