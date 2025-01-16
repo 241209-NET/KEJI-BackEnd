@@ -40,6 +40,7 @@ public class UserRepository : IUserRepository
         var user = _bankingContext.Account.Single(a => a.AccountId == id);
 
         user.Balance = amount;
+        _bankingContext.SaveChanges();
     }
 
 }
