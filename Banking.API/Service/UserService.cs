@@ -67,6 +67,9 @@ public class UserService : IUserService
         return await _userRepository.GetUserById(userId);
     }
 
-
+    public User? GetByEmail(string email)
+    {
+        return _userRepository.GetByEmail(email);
+    }
 
 }
