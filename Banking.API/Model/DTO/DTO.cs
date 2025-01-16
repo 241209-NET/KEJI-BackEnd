@@ -47,9 +47,8 @@ public class Token_account
 public class Token_statement
 {
     public int StatementId { get; set; }
-    public double Amount { get; set; }
-    public double Difference { get; set; }
     public DateOnly StartDate { get; set; }
+    public virtual ICollection<Token_activity>? Activities{ get; set; }
 }
 
 public class Token_activity
