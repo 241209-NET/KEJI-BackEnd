@@ -77,4 +77,8 @@ public class UserService : IUserService
         return _userRepository.GetByEmail(email);
     }
 
+    public void UpdateAmmount(double amount, int id){
+        _userRepository.UpdateAmmount(amount, id);
+    }
+
 }

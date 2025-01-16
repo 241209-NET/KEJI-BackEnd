@@ -5,6 +5,7 @@ namespace Banking.API.Service;
 
 public interface IUserService
 {
+    public void UpdateAmmount(double amount, int id);
     UserResponseDTO Register(UserRequestDTO userDTO);
     Token? Login(LoginDTO loginDTO);
     Task<User?>GetUserById(int userId);

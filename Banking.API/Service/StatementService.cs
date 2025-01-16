@@ -1,11 +1,7 @@
-using System.Net.WebSockets;
 using Banking.API.DTO;
 using Banking.API.Model;
 using Banking.API.Repository;
 using Banking.API.Utils;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client;
-using Microsoft.VisualBasic;
 
 namespace Banking.API.Service;
 

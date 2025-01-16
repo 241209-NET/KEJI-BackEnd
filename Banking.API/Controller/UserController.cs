@@ -60,4 +60,10 @@ public class UserController : ControllerBase
         });
     }
 
+    [HttpPatch("amount/{amount}/{id}")]
+    public IActionResult UpdateAmmount(double amount, int id){
+        _userService.UpdateAmmount(amount, id);
+
+        return Ok("Updated");
+    }
 }

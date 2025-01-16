@@ -36,4 +36,10 @@ public class UserRepository : IUserRepository
         .FirstOrDefaultAsync(u => u.UserId == userId);
     }
 
+    public void UpdateAmmount(double amount, int id){
+        var user = _bankingContext.Account.Single(a => a.AccountId == id);
+
+        user.Balance = amount;
+    }
+
 }
