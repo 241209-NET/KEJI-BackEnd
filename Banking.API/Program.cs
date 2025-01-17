@@ -6,17 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
-var allOrigins = "All_Origins";
-
-builder.Services.AddCors(options => 
-{
-    options.AddPolicy(name: allOrigins,
-        policy => {
-            policy.AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-        });
-});
 
 // DBContext and Connection to database
 builder.Services.AddDbContext<BankingContext>(options => 
@@ -54,8 +43,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseCors(allOrigins);
 
 app.UseHttpsRedirection();
 app.MapControllers();
