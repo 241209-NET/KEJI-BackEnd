@@ -6,15 +6,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
+var allOrigins = "All_Origins";
 
-builder.Services.AddCors(options =>
+builder.Services.AddCors(options => 
 {
-    options.AddPolicy("AllowSpecificOrigin", builder =>
-    {
-        builder.WithOrigins("http://localhost:5173")
-               .AllowAnyHeader()
-               .AllowAnyMethod();
-    });
+    options.AddPolicy(name: allOrigins,
+        policy => {
+            policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        });
 });
 
 // DBContext and Connection to database
@@ -54,7 +55,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowSpecificOrigin");
+app.UseCors(allOrigins);
 
 app.UseHttpsRedirection();
 app.MapControllers();
